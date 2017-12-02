@@ -1,0 +1,31 @@
+{
+    "name": "ufo-cms/json-rpc-bundle",
+    "description": "The bundle for easy using json-rpc api on your project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Maystrenko",
+            "email": "ashterix69@gmail.com"
+        }
+    ],
+    "version" : "1.0.0",
+    "type" : "symfony-bundle",
+    "homepage": "https://github.com/UFO-CMS/json-rpc-bundle",
+    "keywords" : ["ufo", "symfony", "api", "bundle", "json-rpc"],
+    "minimum-stability" : "dev",
+    "require" : {
+        "php": ">=5.4.2",
+        "symfony/symfony": ">=2.6",
+        "zendframework/zend-server": "2.6.*",
+        "zendframework/zend-json": "2.6.*",
+        "zendframework/zend-http": "2.5.*"
+    },
+    "autoload" : {
+        "psr-4" : { "Ufo\\JsonRpcBundle\\" : "src/Ufo/JsonRpcBundle/" }
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.0.x-dev"
+        }
+    }
+}

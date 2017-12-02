@@ -1,0 +1,7 @@
+ufo_json_rpc_bundle:
+    resource: "@UfoJsonRpcBundle/Resources/config/routing.yml"
+
+ufo_api_server:
+    path:     /
+    defaults: { _controller: UfoJsonRpcBundle:Api:server }
+    methods: ["GET", "POST"]
