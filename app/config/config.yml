@@ -74,3 +74,9 @@ ufo_json_rpc:
         clients_tokens:
             - "ClientTokenExample"              # Example client token. IMPORTANT!!! Change or remove this!
             - "ExampleOfAnotherClientToken"     # Example client token. IMPORTANT!!! Change or remove this!
+
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/DoctrineMigrations
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
