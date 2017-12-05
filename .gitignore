@@ -8,3 +8,4 @@
 /app/phpunit.xml
 /build/
 .idea/
+.php_cs.cache
