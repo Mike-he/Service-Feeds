@@ -7,8 +7,8 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
-        rpc.my_procedure:
-            class: MicroServicesBundle\Services\TestService
-            arguments: ['@service_container']
-            tags:
-                - { name: rpc.service }
+    rpc.feed_service:
+        class: MicroServicesBundle\Services\FeedService
+        arguments: ['@service_container']
+        tags:
+            - { name: rpc.service }

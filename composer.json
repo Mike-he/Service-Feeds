@@ -31,6 +31,7 @@
         "ufo-cms/json-rpc-bundle": "dev-master"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
         "sensio/generator-bundle": "~3.0",
         "symfony/phpunit-bridge": "~2.7"
     },
