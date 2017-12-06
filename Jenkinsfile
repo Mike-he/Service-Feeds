@@ -19,7 +19,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying..'
+                    echo 'Deploying..'
+                    sh 'sudo docker login -u account@sandbox3.cn -p Sandhill2290 registry-internal.cn-shanghai.aliyuncs.com'
+                    sh 'sudo docker push registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed'
                 }
             }
         stage('Notice') {
