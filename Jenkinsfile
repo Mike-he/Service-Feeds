@@ -7,9 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build Docker Image...'
-                script {
-                    sh 'sudo docker build -t registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed: env.BRANCH_NAME .'
-                }
+                sh 'sudo docker build -t registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed: ${env.BRANCH_NAME} .'
             }
         }
 
