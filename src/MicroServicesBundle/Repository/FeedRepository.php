@@ -16,4 +16,16 @@ class FeedRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getDetail(
+        $id
+    ) {
+        $query = $this->createQueryBuilder('f')
+            ->where('f.id = :id')
+            ->setParameter('id', $id);
+
+        $result = $query->getQuery()->getOneOrNullResult(2);
+
+        return $result;
+    }
 }

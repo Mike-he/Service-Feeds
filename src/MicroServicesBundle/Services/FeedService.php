@@ -33,4 +33,14 @@ class FeedService implements IRpcService
 
         return $feeds;
     }
+
+    public function detail(
+        $id
+    ) {
+        $feed = $this->em
+            ->getRepository('MicroServicesBundle:Feed')
+            ->getDetail($id);
+
+        return $feed;
+    }
 }

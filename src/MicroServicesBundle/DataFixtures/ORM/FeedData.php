@@ -5,7 +5,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use MicroServicesBundle\Entity\Feed;
 
-class AppFixtures extends Fixture
+class FeedData extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -19,5 +19,10 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 1;
     }
 }
