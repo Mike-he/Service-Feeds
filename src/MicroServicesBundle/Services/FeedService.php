@@ -8,7 +8,6 @@ use Ufo\JsonRpcBundle\ApiMethod\Interfaces\IRpcService;
 
 class FeedService implements IRpcService
 {
-
     private $container;
 
     private $doctrine;
@@ -26,13 +25,12 @@ class FeedService implements IRpcService
     /**
      * @return string
      */
-   public function lists()
-   {
-       $feeds = $this->em
+    public function lists()
+    {
+        $feeds = $this->em
            ->getRepository('MicroServicesBundle:Feed')
            ->getFeeds();
 
-
-       return $feeds;
-   }
+        return $feeds;
+    }
 }
