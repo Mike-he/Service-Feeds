@@ -23,13 +23,17 @@ class FeedService implements IRpcService
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function lists()
     {
         $feeds = $this->em
            ->getRepository('MicroServicesBundle:Feed')
            ->getFeeds();
+
+        foreach ($feeds as &$feed) {
+            $feed['creationDate'] = $feed['creationDate']->format("Y-m-d\TH:i:sO");
+        }
 
         return $feeds;
     }
@@ -40,6 +44,8 @@ class FeedService implements IRpcService
         $feed = $this->em
             ->getRepository('MicroServicesBundle:Feed')
             ->getDetail($id);
+
+        $feed['creationDate'] = $feed['creationDate']->format("Y-m-d\TH:i:sO");
 
         return $feed;
     }
