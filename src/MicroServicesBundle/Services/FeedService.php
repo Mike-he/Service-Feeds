@@ -32,7 +32,7 @@ class FeedService implements IRpcService
            ->getFeeds();
 
         foreach ($feeds as &$feed) {
-            $feed['creationDate'] = $feed['creationDate']->format("Y-m-d\TH:i:sO");
+            $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
         }
 
         return $feeds;
@@ -45,7 +45,7 @@ class FeedService implements IRpcService
             ->getRepository('MicroServicesBundle:Feed')
             ->getDetail($id);
 
-        $feed['creationDate'] = $feed['creationDate']->format("Y-m-d\TH:i:sO");
+        $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
 
         return $feed;
     }
