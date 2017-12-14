@@ -3,6 +3,7 @@
 namespace MicroServicesBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use MicroServicesBundle\Entity\Feed;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ufo\JsonRpcBundle\ApiMethod\Interfaces\IRpcService;
 
@@ -50,5 +51,19 @@ class FeedService implements IRpcService
         }
 
         return $feed;
+    }
+
+    public function remove(
+        $id
+    ) {
+        /** @var Feed $feed */
+        $feed = $this->em->getRepository('MicroServicesBundle:Feed')->find($id);
+
+        if ($feed) {
+            $feed->setIsDeleted(true);
+
+            $this->em->persist($feed);
+            $this->em->flush();
+        }
     }
 }
