@@ -45,7 +45,9 @@ class FeedService implements IRpcService
             ->getRepository('MicroServicesBundle:Feed')
             ->getDetail($id);
 
-        $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
+        if ($feed) {
+            $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
+        }
 
         return $feed;
     }
