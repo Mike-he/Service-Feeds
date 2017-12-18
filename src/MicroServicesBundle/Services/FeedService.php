@@ -30,7 +30,7 @@ class FeedService implements IRpcService
     public function lists()
     {
         $feeds = $this->em
-           ->getRepository('MicroServicesBundle:Feed')
+           ->getRepository('MicroServicesBundle:FeedView')
            ->getFeeds();
 
         foreach ($feeds as &$feed) {
@@ -49,7 +49,7 @@ class FeedService implements IRpcService
         $id
     ) {
         $feed = $this->em
-            ->getRepository('MicroServicesBundle:Feed')
+            ->getRepository('MicroServicesBundle:FeedView')
             ->getDetail($id);
 
         if ($feed) {
@@ -104,17 +104,22 @@ class FeedService implements IRpcService
 
     /**
      * @param int $id
+     * @param int $user
      */
     public function remove(
-        $id
+        $id,
+        $user
     ) {
         /** @var Feed $feed */
-        $feed = $this->em->getRepository('MicroServicesBundle:Feed')->find($id);
+        $feed = $this->em
+            ->getRepository('MicroServicesBundle:Feed')
+            ->findOneBy(array(
+                'id' => $id,
+                'owner' => $user,
+            ));
 
         if ($feed) {
-            $feed->setIsDeleted(true);
-
-            $this->em->persist($feed);
+            $this->em->remove($feed);
             $this->em->flush();
         }
     }

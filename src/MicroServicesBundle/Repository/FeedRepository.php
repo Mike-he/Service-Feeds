@@ -21,7 +21,8 @@ class FeedRepository extends EntityRepository
         $id
     ) {
         $query = $this->createQueryBuilder('f')
-            ->where('f.id = :id')
+            ->where('f.isDeleted = FALSE')
+            ->andWhere('f.id = :id')
             ->setParameter('id', $id);
 
         $result = $query->getQuery()->getOneOrNullResult(2);

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * FeedLike.
  *
  * @ORM\Table(name="feed_likes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="MicroServicesBundle\Repository\FeedLikeRepository")
  */
 class FeedLike
 {

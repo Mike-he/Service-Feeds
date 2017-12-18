@@ -12,3 +12,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: rpc.service }
+
+    rpc.feed_like_service:
+        class: MicroServicesBundle\Services\FeedLikeService
+        arguments: ['@service_container']
+        tags:
+            - { name: rpc.service }
