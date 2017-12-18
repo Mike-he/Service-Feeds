@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * FeedAttachment.
  *
  * @ORM\Table(name="feed_attachment")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="MicroServicesBundle\Repository\FeedAttachmentRepository")
  */
 class FeedAttachment
 {

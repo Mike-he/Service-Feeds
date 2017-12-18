@@ -54,6 +54,12 @@ class FeedService implements IRpcService
 
         if ($feed) {
             $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
+
+            $attachments = $this->em
+                ->getRepository('MicroServicesBundle:FeedAttachment')
+                ->getAttachments($id);
+
+            $feed['attachments'] = $attachments;
         }
 
         return $feed;
