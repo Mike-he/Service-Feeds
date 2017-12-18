@@ -22,14 +22,13 @@ namespace Doctrine\Test\DataFixtures\Sorter;
 
 use Doctrine\Common\DataFixtures\Sorter\Vertex;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\Tests\Common\DataFixtures\BaseTest;
 
 /**
  * @author Marco Pivetta <ocramius@gmail.com>
  *
  * @covers \Doctrine\Common\DataFixtures\Sorter\Vertex
  */
-class VertexTest extends BaseTest
+class VertexTest extends \PHPUnit_Framework_TestCase
 {
     public function testNode()
     {

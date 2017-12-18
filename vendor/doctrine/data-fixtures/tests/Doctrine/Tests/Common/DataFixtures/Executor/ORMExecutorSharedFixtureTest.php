@@ -33,8 +33,8 @@ use Doctrine\Tests\Common\DataFixtures\TestEntity\User;
  */
 class ORMExecutorSharedFixtureTest extends BaseTest
 {
-    const TEST_ENTITY_ROLE = Role::class;
-    const TEST_ENTITY_USER = User::class;
+    const TEST_ENTITY_ROLE = 'Doctrine\Tests\Common\DataFixtures\TestEntity\Role';
+    const TEST_ENTITY_USER = 'Doctrine\Tests\Common\DataFixtures\TestEntity\User';
 
     public function testFixtureExecution()
     {
@@ -52,7 +52,7 @@ class ORMExecutorSharedFixtureTest extends BaseTest
             ->method('setReferenceRepository')
             ->with($referenceRepository);
 
-        $executor->execute([$fixture], true);
+        $executor->execute(array($fixture), true);
     }
 
     public function testSharedFixtures()
@@ -63,18 +63,18 @@ class ORMExecutorSharedFixtureTest extends BaseTest
 
         $em = $this->getMockSqliteEntityManager();
         $schemaTool = new SchemaTool($em);
-        $schemaTool->dropSchema([]);
-        $schemaTool->createSchema([
+        $schemaTool->dropSchema(array());
+        $schemaTool->createSchema(array(
             $em->getClassMetadata(self::TEST_ENTITY_ROLE),
             $em->getClassMetadata(self::TEST_ENTITY_USER)
-        ]);
+        ));
 
         $purger = new ORMPurger();
         $executor = new ORMExecutor($em, $purger);
 
         $userFixture = new TestFixtures\UserFixture;
         $roleFixture = new TestFixtures\RoleFixture;
-        $executor->execute([$roleFixture, $userFixture], true);
+        $executor->execute(array($roleFixture, $userFixture), true);
 
         $referenceRepository = $executor->getReferenceRepository();
         $references = $referenceRepository->getReferences();

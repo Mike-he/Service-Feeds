@@ -7,9 +7,10 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.1
-  - 7.2
+  - 5.6
+  - 7.0
   - nightly
+  - hhvm
 
 matrix:
   allow_failures:
@@ -18,13 +19,12 @@ matrix:
 services: mongodb
 
 before_install:
-  - pecl install mongodb
+  - "if [[ $TRAVIS_PHP_VERSION != 'hhvm' && $TRAVIS_PHP_VERSION != '7.0' ]]; then echo 'extension = mongo.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi"
 
 before_script:
   - composer self-update
   - composer install --prefer-source
-  - composer require --ignore-platform-reqs alcaeus/mongo-php-adapter
-  - composer require doctrine/mongodb-odm
+  - "if [[ $TRAVIS_PHP_VERSION != 'hhvm' && $TRAVIS_PHP_VERSION != '7.0' ]]; then composer require 'doctrine/mongodb-odm' '*@beta'; fi"
 
 script:
   - ./vendor/bin/phpunit -v

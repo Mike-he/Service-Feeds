@@ -23,7 +23,6 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\SharedFixtureInterface;
 use TestFixtures\MyFixture1;
-use TestFixtures\NotAFixture;
 
 /**
  * Test fixtures loader.
@@ -43,8 +42,8 @@ class LoaderTest extends BaseTest
 
         $loader->loadFromDirectory(__DIR__.'/TestFixtures');
         $this->assertCount(7, $loader->getFixtures());
-        $this->assertTrue($loader->isTransient(NotAFixture::class));
-        $this->assertFalse($loader->isTransient(MyFixture1::class));
+        $this->assertTrue($loader->isTransient('TestFixtures\NotAFixture'));
+        $this->assertFalse($loader->isTransient('TestFixtures\MyFixture1'));
     }
 
     public function testLoadFromFile()
@@ -62,8 +61,8 @@ class LoaderTest extends BaseTest
         $this->assertCount(4, $loader->getFixtures());
         $loader->loadFromFile(__DIR__.'/TestFixtures/MyFixture2.php');
         $this->assertCount(5, $loader->getFixtures());
-        $this->assertTrue($loader->isTransient(NotAFixture::class));
-        $this->assertFalse($loader->isTransient(MyFixture1::class));
+        $this->assertTrue($loader->isTransient('TestFixtures\NotAFixture'));
+        $this->assertFalse($loader->isTransient('TestFixtures\MyFixture1'));
     }
 
     public function testGetFixture()

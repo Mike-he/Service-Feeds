@@ -37,7 +37,7 @@ class ReferenceRepository
      *
      * @var array
      */
-    private $references = [];
+    private $references = array();
 
     /**
      * List of identifiers stored for references
@@ -46,7 +46,7 @@ class ReferenceRepository
      *
      * @var array
      */
-    private $identities = [];
+    private $identities = array();
 
     /**
      * Currently used object manager
@@ -85,11 +85,6 @@ class ReferenceRepository
         // Dealing with ORM UnitOfWork
         if (method_exists($uow, 'getEntityIdentifier')) {
             return $uow->getEntityIdentifier($reference);
-        }
-
-        // PHPCR ODM UnitOfWork
-        if ($this->manager instanceof PhpcrDocumentManager) {
-            return $uow->getDocumentId($reference);
         }
 
         // ODM UnitOfWork

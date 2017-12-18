@@ -23,8 +23,8 @@ use Doctrine\Common\DataFixtures\Executor\PHPCRExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Doctrine\ODM\PHPCR\DocumentManager;
-use Doctrine\Tests\Common\DataFixtures\BaseTest;
 use Exception;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Tests for {@see \Doctrine\Common\DataFixtures\Executor\PHPCRExecutor}
@@ -33,7 +33,7 @@ use Exception;
  *
  * @covers \Doctrine\Common\DataFixtures\Executor\PHPCRExecutor
  */
-class PHPCRExecutorTest extends BaseTest
+class PHPCRExecutorTest extends PHPUnit_Framework_TestCase
 {
     public function testExecuteSingleFixtureWithNoPurge()
     {
@@ -50,7 +50,7 @@ class PHPCRExecutorTest extends BaseTest
                 return $callback($dm);
             }));
 
-        $executor->execute([$fixture], true);
+        $executor->execute(array($fixture), true);
     }
 
     public function testExecuteMultipleFixturesWithNoPurge()
@@ -70,7 +70,7 @@ class PHPCRExecutorTest extends BaseTest
                 return $callback($dm);
             }));
 
-        $executor->execute([$fixture1, $fixture2], true);
+        $executor->execute(array($fixture1, $fixture2), true);
     }
 
     public function testExecuteFixtureWithPurge()
@@ -90,7 +90,7 @@ class PHPCRExecutorTest extends BaseTest
             }));
         $purger->expects($this->once())->method('purge');
 
-        $executor->execute([$fixture], false);
+        $executor->execute(array($fixture), false);
     }
 
     public function testExecuteFixtureWithoutPurge()
@@ -110,7 +110,7 @@ class PHPCRExecutorTest extends BaseTest
             }));
         $purger->expects($this->never())->method('purge');
 
-        $executor->execute([$fixture], true);
+        $executor->execute(array($fixture), true);
     }
 
     public function testFailedTransactionalStopsPurgingAndFixtureLoading()
@@ -126,7 +126,7 @@ class PHPCRExecutorTest extends BaseTest
         $purger->expects($this->never())->method('purge');
 
         try {
-            $executor->execute([$fixture], true);
+            $executor->execute(array($fixture), true);
         } catch (\Exception $caughtException) {
             $this->assertSame($exception, $caughtException);
         }

@@ -23,7 +23,6 @@ namespace Doctrine\Test\DataFixtures\Sorter;
 use Doctrine\Common\DataFixtures\Exception\CircularReferenceException;
 use Doctrine\Common\DataFixtures\Sorter\TopologicalSorter;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\Tests\Common\DataFixtures\BaseTest;
 
 /**
  * TopologicalSorter tests.
@@ -36,7 +35,7 @@ use Doctrine\Tests\Common\DataFixtures\BaseTest;
  *
  * @covers \Doctrine\Common\DataFixtures\Sorter\TopologicalSorter
  */
-class TopologicalSorterTest extends BaseTest
+class TopologicalSorterTest extends \PHPUnit_Framework_TestCase
 {
     public function testSuccessSortLinearDependency()
     {
@@ -60,7 +59,7 @@ class TopologicalSorterTest extends BaseTest
         $sorter->addDependency('5', '1');
 
         $sortedList  = $sorter->sort();
-        $correctList = [$node4, $node3, $node2, $node1, $node5];
+        $correctList = array($node4, $node3, $node2, $node1, $node5);
 
         self::assertSame($correctList, $sortedList);
     }
@@ -88,7 +87,7 @@ class TopologicalSorterTest extends BaseTest
         $sorter->addDependency('5', '1');
 
         $sortedList  = $sorter->sort();
-        $correctList = [$node1, $node2, $node4, $node5, $node3];
+        $correctList = array($node1, $node2, $node4, $node5, $node3);
 
         self::assertSame($correctList, $sortedList);
     }
@@ -110,7 +109,7 @@ class TopologicalSorterTest extends BaseTest
         $sorter->addDependency('3', '1');
 
         $sortedList  = $sorter->sort();
-        $correctList = [$node3, $node2, $node1];
+        $correctList = array($node3, $node2, $node1);
 
         self::assertSame($correctList, $sortedList);
 
@@ -161,7 +160,7 @@ class TopologicalSorterTest extends BaseTest
         $sorter->addDependency('5', '1');
 
         $sortedList  = $sorter->sort();
-        $correctList = [$node4, $node3, $node2, $node1, $node5];
+        $correctList = array($node4, $node3, $node2, $node1, $node5);
 
         self::assertSame($correctList, $sortedList);
     }

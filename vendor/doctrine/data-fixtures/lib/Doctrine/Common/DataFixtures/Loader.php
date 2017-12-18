@@ -33,14 +33,14 @@ class Loader
      *
      * @var array
      */
-    private $fixtures = [];
+    private $fixtures = array();
 
     /**
      * Array of ordered fixture object instances.
      *
      * @var array
      */
-    private $orderedFixtures = [];
+    private $orderedFixtures = array();
 
     /**
      * Determines if we must order fixtures by number
@@ -94,7 +94,7 @@ class Loader
             throw new \InvalidArgumentException(sprintf('"%s" does not exist or is not readable', $fileName));
         }
 
-        $iterator = new \ArrayIterator([new \SplFileInfo($fileName)]);
+        $iterator = new \ArrayIterator(array(new \SplFileInfo($fileName)));
         return $this->loadFromIterator($iterator);
     }
 
@@ -153,7 +153,7 @@ class Loader
                 $this->orderFixturesByDependencies = true;
                 foreach($fixture->getDependencies() as $class) {
                     if (class_exists($class)) {
-                        $this->addFixture($this->createFixture($class));
+                        $this->addFixture(new $class);
                     }
                 }
             }
@@ -167,7 +167,7 @@ class Loader
      */
     public function getFixtures()
     {
-        $this->orderedFixtures = [];
+        $this->orderedFixtures = array();
 
         if ($this->orderFixturesByNumber) {
             $this->orderFixturesByNumber();
@@ -196,18 +196,7 @@ class Loader
         if ($rc->isAbstract()) return true;
 
         $interfaces = class_implements($className);
-        return in_array(FixtureInterface::class, $interfaces) ? false : true;
-    }
-
-    /**
-     * Creates the fixture object from the class.
-     *
-     * @param string $class
-     * @return FixtureInterface
-     */
-    protected function createFixture($class)
-    {
-        return new $class();
+        return in_array('Doctrine\Common\DataFixtures\FixtureInterface', $interfaces) ? false : true;
     }
 
     /**
@@ -242,7 +231,7 @@ class Loader
      */
     private function orderFixturesByDependencies()
     {
-        $sequenceForClasses = [];
+        $sequenceForClasses = array();
 
         // If fixtures were already ordered by number then we need 
         // to remove classes which are not instances of OrderedFixtureInterface
@@ -305,7 +294,7 @@ class Loader
             $lastCount = $count;
         }
 
-        $orderedFixtures = [];
+        $orderedFixtures = array();
         
         // If there're fixtures unsequenced left and they couldn't be sequenced, 
         // it means we have a circular reference
@@ -344,7 +333,7 @@ class Loader
 
     private function getUnsequencedClasses($sequences, $classes = null)
     {
-        $unsequencedClasses = [];
+        $unsequencedClasses = array();
 
         if (is_null($classes)) {
             $classes = array_keys($sequences);
@@ -367,7 +356,7 @@ class Loader
      */
     private function loadFromIterator(\Iterator $iterator)
     {
-        $includedFiles = [];
+        $includedFiles = array();
         foreach ($iterator as $file) {
             if (($fileName = $file->getBasename($this->fileExtension)) == $file->getBasename()) {
                 continue;
@@ -377,7 +366,7 @@ class Loader
             $includedFiles[] = $sourceFile;
         }
 
-        $fixtures = [];
+        $fixtures = array();
         $declared = get_declared_classes();
         // Make the declared classes order deterministic
         sort($declared);
@@ -387,7 +376,7 @@ class Loader
             $sourceFile = $reflClass->getFileName();
 
             if (in_array($sourceFile, $includedFiles) && ! $this->isTransient($className)) {
-                $fixture = $this->createFixture($className);
+                $fixture = new $className;
                 $fixtures[] = $fixture;
                 $this->addFixture($fixture);
             }

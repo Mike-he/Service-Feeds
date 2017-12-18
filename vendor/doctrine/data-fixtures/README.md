@@ -30,10 +30,10 @@ Now you can begin adding the fixtures to a loader instance:
 
 ```php
 use Doctrine\Common\DataFixtures\Loader;
-use MyDataFixtures\UserDataLoader;
+use MyDataFixtures\LoadUserData;
 
 $loader = new Loader();
-$loader->addFixture(new UserDataLoader());
+$loader->addFixture(new LoadUserData());
 ```
 
 You can load a set of fixtures from a directory as well:
@@ -44,9 +44,7 @@ $loader->loadFromDirectory('/path/to/MyDataFixtures');
 
 Or you can load a set of fixtures from a file:
 
-```php
-$loader->loadFromFile('/path/to/MyDataFixtures/MyFixture1.php');
-```
+    $loader->loadFromFile('/path/to/MyDataFixtures/MyFixture1.php');
 
 You can get the added fixtures using the getFixtures() method:
 
@@ -84,7 +82,7 @@ namespace MyDataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class UserRoleDataLoader extends AbstractFixture
+class LoadUserRoleData extends AbstractFixture
 {
     public function load(ObjectManager $manager)
     {
@@ -112,7 +110,7 @@ namespace MyDataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class UserDataLoader extends AbstractFixture
+class LoadUserData extends AbstractFixture
 {
     public function load(ObjectManager $manager)
     {

@@ -22,14 +22,14 @@ namespace Doctrine\Tests\Common\DataFixtures;
 use Doctrine\DBAL\Driver;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Base test class
  *
  * @author Jonathan H. Wage <jonwage@gmail.com>
  */
-abstract class BaseTest extends TestCase
+abstract class BaseTest extends PHPUnit_Framework_TestCase
 {
     /**
      * EntityManager mock object together with
@@ -39,8 +39,8 @@ abstract class BaseTest extends TestCase
      */
     protected function getMockAnnotationReaderEntityManager()
     {
-        $dbParams = ['driver' => 'pdo_sqlite', 'memory' => true];
-        $config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/TestEntity'], true);
+        $dbParams = array('driver' => 'pdo_sqlite', 'memory' => true);
+        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__.'/TestEntity'), true);
         return EntityManager::create($dbParams, $config);
     }
 
@@ -53,8 +53,8 @@ abstract class BaseTest extends TestCase
      */
     protected function getMockSqliteEntityManager()
     {
-        $dbParams = ['driver' => 'pdo_sqlite', 'memory' => true];
-        $config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/TestEntity'], true);
+        $dbParams = array('driver' => 'pdo_sqlite', 'memory' => true);
+        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__.'/TestEntity'), true);
         return EntityManager::create($dbParams, $config);
     }
 }
