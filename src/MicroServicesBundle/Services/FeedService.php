@@ -4,6 +4,7 @@ namespace MicroServicesBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use MicroServicesBundle\Entity\Feed;
+use MicroServicesBundle\Entity\FeedAttachment;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ufo\JsonRpcBundle\ApiMethod\Interfaces\IRpcService;
 
@@ -39,6 +40,11 @@ class FeedService implements IRpcService
         return $feeds;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     */
     public function detail(
         $id
     ) {
@@ -53,6 +59,46 @@ class FeedService implements IRpcService
         return $feed;
     }
 
+    /**
+     * @param int    $owner
+     * @param string $content
+     * @param string $platform
+     * @param string $location
+     * @param array  $attachments
+     *
+     * @return int
+     */
+    public function create(
+        $owner,
+        $content,
+        $platform,
+        $location,
+        $attachments = array()
+    ) {
+        $feed = new Feed();
+        $feed->setOwner($owner);
+        $feed->setContent($content);
+        $feed->setPlatform($platform);
+        $feed->setLocation($location);
+        $feed->setCreationDate(new \DateTime('now'));
+
+        $this->em->persist($feed);
+
+        if ($attachments) {
+            $this->addAttachments(
+                $feed,
+                $attachments
+            );
+        }
+
+        $this->em->flush();
+
+        return $feed->getId();
+    }
+
+    /**
+     * @param int $id
+     */
     public function remove(
         $id
     ) {
@@ -64,6 +110,24 @@ class FeedService implements IRpcService
 
             $this->em->persist($feed);
             $this->em->flush();
+        }
+    }
+
+    private function addAttachments(
+        $feed,
+        $attachments
+    ) {
+        foreach ($attachments as $attachment) {
+            $feedAttachment = new FeedAttachment();
+
+            $feedAttachment->setFeed($feed);
+            $feedAttachment->setContent($attachment['content']);
+            $feedAttachment->setAttachmentType($attachment['attachment_type']);
+            $feedAttachment->setFilename($attachment['filename']);
+            $feedAttachment->setPreview($attachment['preview']);
+            $feedAttachment->setSize($attachment['size']);
+
+            $this->em->persist($feedAttachment);
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace MicroServicesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MicroServicesBundle\Constants\PlatformConstants;
 
 /**
  * Feed.
@@ -29,7 +30,7 @@ class Feed
     private $content;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Column(name="owner", type="integer")
      */
@@ -45,9 +46,16 @@ class Feed
     /**
      * @var string
      *
-     * @ORM\Column(name="platform", type="string", length=64)
+     * @ORM\Column(name="platform", type="string", length=64, options={"default": "official"})
      */
-    private $platform;
+    private $platform = PlatformConstants::PLATFORM_OFFICIAL;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=256, nullable=true)
+     */
+    private $location;
 
     /**
      * @var \DateTime
@@ -75,7 +83,7 @@ class Feed
     }
 
     /**
-     * @param string $content
+     * @param int $content
      */
     public function setContent($content)
     {
@@ -83,7 +91,7 @@ class Feed
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getOwner()
     {
@@ -128,6 +136,22 @@ class Feed
     public function setPlatform($platform)
     {
         $this->platform = $platform;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param string $location
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
     }
 
     /**

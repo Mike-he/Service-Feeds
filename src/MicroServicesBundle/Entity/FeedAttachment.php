@@ -22,7 +22,10 @@ class FeedAttachment
     private $id;
 
     /**
-     * @ORM\Column(name="feed", type="integer")
+     * @var \MicroServicesBundle\Entity\Feed
+     *
+     * @ORM\ManyToOne(targetEntity="MicroServicesBundle\Entity\Feed")
+     * @ORM\JoinColumn(name="feed_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $feed;
 
@@ -72,7 +75,7 @@ class FeedAttachment
     }
 
     /**
-     * @return mixed
+     * @return Feed
      */
     public function getFeed()
     {
@@ -80,7 +83,7 @@ class FeedAttachment
     }
 
     /**
-     * @param mixed $feed
+     * @param Feed $feed
      */
     public function setFeed($feed)
     {
