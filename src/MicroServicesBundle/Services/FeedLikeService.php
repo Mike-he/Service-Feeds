@@ -3,6 +3,7 @@
 namespace MicroServicesBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use MicroServicesBundle\Entity\FeedLike;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ufo\JsonRpcBundle\ApiMethod\Interfaces\IRpcService;
 
@@ -26,7 +27,7 @@ class FeedLikeService implements IRpcService
      * @param int $feed
      * @param int $user
      *
-     * @return mixed
+     * @return int|null
      */
     public function getId(
         $feed,
@@ -41,6 +42,11 @@ class FeedLikeService implements IRpcService
         return $result;
     }
 
+    /**
+     * @param integer $feed
+     *
+     * @return int
+     */
     public function count(
         $feed
     ) {
@@ -49,5 +55,71 @@ class FeedLikeService implements IRpcService
             ->count($feed);
 
         return (int) $count;
+    }
+
+    /**
+     * @param integer $feed
+     *
+     * @return array
+     */
+    public function getAuthor(
+        $feed
+    ) {
+        $result = $this->em
+            ->getRepository('MicroServicesBundle:FeedLike')
+            ->getLikes($feed);
+
+        return $result;
+    }
+
+
+    /**
+     * @param integer $feed
+     * @param integer $user
+     *
+     * @return int|null
+     */
+    public function create(
+        $feed,
+        $user
+    ) {
+        $like = $this->em
+            ->getRepository('MicroServicesBundle:FeedLike')
+            ->findOneBy(array(
+                'feed' => $feed,
+                'author' => $user,
+            ));
+        if (is_null($like)) {
+            $like = new FeedLike();
+            $like->setFeed($feed);
+            $like->setAuthor($user);
+            $like->setCreationDate(new \DateTime('now'));
+
+            $this->em->persist($like);
+            $this->em->flush();
+        }
+
+        return $like->getId();
+    }
+
+    /**
+     * @param integer $feed
+     * @param integer $user
+     */
+    public function remove(
+        $feed,
+        $user
+    ) {
+        $like = $this->em
+            ->getRepository('MicroServicesBundle:FeedLike')
+            ->findOneBy(array(
+                'feed' => $feed,
+                'author' => $user,
+            ));
+
+        if ($like) {
+            $this->em->remove($like);
+            $this->em->flush();
+        }
     }
 }

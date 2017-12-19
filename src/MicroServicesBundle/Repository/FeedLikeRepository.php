@@ -35,4 +35,19 @@ class FeedLikeRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getLikes(
+        $feed
+    ) {
+        $query = $this->createQueryBuilder('l')
+            ->select('l.author as authorId')
+            ->where('l.feed = :feed')
+            ->setParameter('feed', $feed);
+
+        $query->orderBy('l.creationDate', 'ASC');
+
+        $result = $query->getQuery()->getResult();
+
+        return $result;
+    }
 }
