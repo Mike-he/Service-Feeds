@@ -8,7 +8,7 @@ class FeedAttachmentRepository extends EntityRepository
 {
     public function getAttachments(
        $feed
-    ){
+    ) {
         $query = $this->createQueryBuilder('fa')
             ->select('fa')
             ->where('fa.feed = :feed')

@@ -43,7 +43,7 @@ class FeedLikeService implements IRpcService
     }
 
     /**
-     * @param integer $feed
+     * @param int $feed
      *
      * @return int
      */
@@ -58,7 +58,7 @@ class FeedLikeService implements IRpcService
     }
 
     /**
-     * @param integer $feed
+     * @param int $feed
      *
      * @return array
      */
@@ -72,10 +72,9 @@ class FeedLikeService implements IRpcService
         return $result;
     }
 
-
     /**
-     * @param integer $feed
-     * @param integer $user
+     * @param int $feed
+     * @param int $user
      *
      * @return int|null
      */
@@ -103,8 +102,8 @@ class FeedLikeService implements IRpcService
     }
 
     /**
-     * @param integer $feed
-     * @param integer $user
+     * @param int $feed
+     * @param int $user
      */
     public function remove(
         $feed,

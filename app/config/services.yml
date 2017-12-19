@@ -18,3 +18,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: rpc.service }
+
+    rpc.feed_comment_service:
+        class: MicroServicesBundle\Services\FeedCommentService
+        arguments: ['@service_container']
+        tags:
+            - { name: rpc.service }

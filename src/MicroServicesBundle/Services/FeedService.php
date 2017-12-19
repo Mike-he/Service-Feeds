@@ -26,9 +26,9 @@ class FeedService implements IRpcService
 
     /**
      * @param string $platform
-     * @param array $users
-     * @param integer $limit
-     * @param integer $offset
+     * @param array  $users
+     * @param int    $limit
+     * @param int    $offset
      *
      * @return array
      */

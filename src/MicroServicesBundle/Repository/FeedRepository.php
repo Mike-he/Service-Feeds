@@ -26,12 +26,12 @@ class FeedRepository extends EntityRepository
                 ->setParameter('owners', $users);
         }
 
+        $query->orderBy('f.creationDate', 'DESC');
+
         if (!is_null($limit) && !is_null($offset)) {
             $query->setMaxResults($limit)
                 ->setFirstResult($offset);
         }
-
-        $query->orderBy('f.creationDate', 'DESC');
 
         $result = $query->getQuery()->getArrayResult();
 

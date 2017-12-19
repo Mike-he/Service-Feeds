@@ -8,6 +8,6 @@ class FeedControllerTest extends WebTestCase
 {
     public function testLists()
     {
-        $this->assertEquals(1,     1);
+        $this->assertEquals(1, 1);
     }
 }

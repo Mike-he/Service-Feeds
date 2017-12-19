@@ -20,7 +20,6 @@ class FeedView
      * @ORM\Column(name="id", type="integer",  nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     *
      */
     private $id;
 
@@ -28,7 +27,6 @@ class FeedView
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     *
      */
     private $content;
 
@@ -36,16 +34,13 @@ class FeedView
      * @var string
      *
      * @ORM\Column(name="owner", type="integer")
-     *
      */
     private $owner;
-
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime")
-     *
      */
     private $creationDate;
 
@@ -53,7 +48,6 @@ class FeedView
      * @var bool
      *
      * @ORM\Column(name="is_deleted", type="boolean")
-     *
      */
     private $isDeleted;
 
@@ -61,7 +55,6 @@ class FeedView
      * @var int
      *
      * @ORM\Column(name="likes_count", type="integer")
-     *
      */
     private $likesCount;
 
@@ -69,16 +62,13 @@ class FeedView
      * @var int
      *
      * @ORM\Column(name="comments_count", type="integer")
-     *
      */
     private $commentsCount;
-
 
     /**
      * @var string
      *
      * @ORM\Column(name="platform", type="string",  nullable=true)
-     *
      */
     private $platform;
 
@@ -86,7 +76,6 @@ class FeedView
      * @var string
      *
      * @ORM\Column(name="location", type="string",  nullable=true)
-     *
      */
     private $location;
 

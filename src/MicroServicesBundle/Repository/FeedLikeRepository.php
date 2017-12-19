@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 class FeedLikeRepository extends EntityRepository
 {
-
     public function getId(
         $feed,
         $user
@@ -19,19 +18,6 @@ class FeedLikeRepository extends EntityRepository
             ->setParameter('author', $user);
 
         $result = $query->getQuery()->getOneOrNullResult();
-
-        return $result;
-    }
-
-    public function count(
-        $feed
-    ) {
-        $query = $this->createQueryBuilder('fl')
-            ->select('count(fl.id)')
-            ->where('fl.feed = :feed')
-            ->setParameter('feed', $feed);
-
-        $result = $query->getQuery()->getSingleScalarResult();
 
         return $result;
     }
