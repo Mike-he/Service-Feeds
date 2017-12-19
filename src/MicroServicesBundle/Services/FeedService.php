@@ -25,16 +25,36 @@ class FeedService implements IRpcService
     }
 
     /**
+     * @param string $platform
+     * @param array $users
+     * @param integer $limit
+     * @param integer $offset
+     *
      * @return array
      */
-    public function lists()
-    {
+    public function lists(
+        $platform,
+        $users = array(),
+        $limit,
+        $offset
+    ) {
         $feeds = $this->em
            ->getRepository('MicroServicesBundle:FeedView')
-           ->getFeeds();
+           ->getFeeds(
+               $platform,
+               $users,
+               $limit,
+               $offset
+           );
 
         foreach ($feeds as &$feed) {
             $feed['creationDate'] = $feed['creationDate']->format(DATE_ISO8601);
+
+            $attachments = $this->em
+                ->getRepository('MicroServicesBundle:FeedAttachment')
+                ->getAttachments($feed['id']);
+
+            $feed['attachments'] = $attachments;
         }
 
         return $feeds;
