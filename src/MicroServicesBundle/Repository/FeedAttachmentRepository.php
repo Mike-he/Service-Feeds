@@ -10,7 +10,14 @@ class FeedAttachmentRepository extends EntityRepository
        $feed
     ) {
         $query = $this->createQueryBuilder('fa')
-            ->select('fa')
+            ->select('
+                fa.id,
+                fa.content,
+                fa.attachmentType as attachment_type,
+                fa.filename,
+                fa.preview,
+                fa.size
+            ')
             ->where('fa.feed = :feed')
             ->setParameter('feed', $feed);
 
