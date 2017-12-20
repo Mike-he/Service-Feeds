@@ -6,26 +6,29 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Build Docker Image...'
-                sh 'sudo docker build -t registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed:$BRANCH_NAME .'
+                sh 'cp app/config/parameters_$BRANCH_NAME.yml.dist app/config/parameters.yml'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh 'php app/console cache:clear --env=prod'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying..'
+                sh 'sudo docker build -t registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed:$BRANCH_NAME .'
                 sh 'sudo docker login -u account@sandbox3.cn -p Sandhill2290 registry-internal.cn-shanghai.aliyuncs.com'
                 sh 'sudo docker push registry-internal.cn-shanghai.aliyuncs.com/sandbox3/service-feed'
 
                 script {
                     if (env.BRANCH_NAME == 'develop') {
                         sh "curl 'https://cs.console.aliyun.com/hook/trigger?triggerUrl=Y2RlY2RkMTJlYTZhOTRmNTQ5MDQ3MWFjODJiMjI5MjNifHNlcnZpY2UtZmVlZHxyZWRlcGxveXwxYTBjczZsMHZhNGVzfA==&secret=755a5349754445746431726133423448fed02c7aab147471d1c3ceaf08abec0f'"
+                    } else if (env.BRANCH_NAME == 'staging') {
+                        sh "curl ''"
+                    } else if (env.BRANCH_NAME == 'master') {
+                        sh "curl ''"
                     } else {
                         echo 'I execute elsewhere'
                     }

@@ -1,12 +1,9 @@
-# This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_mysql
-    database_port: '3306'
-
-    database_host: rdsuz7cpk5r23ytx02t0o.mysql.rds.aliyuncs.com
+    database_host: rdsuz7cpk5r23ytx02t0.mysql.rds.aliyuncs.com
     database_name: sandbox_service_feed
     database_user: develop_root
     database_password: go_beta_123
+    database_port: '3306'
 
     mailer_transport: smtp
     mailer_host: 127.0.0.1
