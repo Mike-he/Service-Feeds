@@ -29,9 +29,9 @@ pipeline {
                     if (env.BRANCH_NAME == 'develop') {
                         sh "curl 'https://cs.console.aliyun.com/hook/trigger?triggerUrl=Y2RlY2RkMTJlYTZhOTRmNTQ5MDQ3MWFjODJiMjI5MjNifGFwaS1zZXJ2aWNlLWZlZWR8cmVkZXBsb3l8MWEwaHMxcmhxYmVzMHw=&secret=4e6f3671564e634f494c496c77753770ba16fd9bed744d89a34df654d2db6742'"
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh "curl ''"
+                        sh "curl 'https://cs.console.aliyun.com/hook/trigger?triggerUrl=Y2YxOTJlM2JlYzM0YjRmMjI4ZDVlNzI2MGVmM2MwMjExfGFwaS1zZXJ2aWNlLWZlZWR8cmVkZXBsb3l8MWEwaHN0dGhyazhqMHw=&secret=4d7a55436c5a49566e6c4574503247748b079edf035c779468f59dcd773c8595'"
                     } else if (env.BRANCH_NAME == 'master') {
-                        sh "curl ''"
+
                     } else {
                         echo 'I execute elsewhere'
                     }
