@@ -16,6 +16,7 @@ pipeline {
                 sh 'php app/console cache:clear --env=dev'
                 sh 'chmod o+rwx app/cache -R'
                 sh 'chmod o+rwx app/logs -R'
+                sh 'php app/console doc:mig:mig -q'
             }
         }
 
