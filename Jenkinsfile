@@ -13,6 +13,9 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'php app/console cache:clear --env=prod'
+                sh 'php app/console cache:clear --env=dev'
+                sh 'chmod o+rwx app/cache -R'
+                sh 'chmod o+rwx app/logs -R'
             }
         }
 
